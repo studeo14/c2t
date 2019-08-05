@@ -32,7 +32,7 @@ public class CommentTextWriter {
         // process text
         for (ReferenceAnnotation ref : JCasUtil.select(postJcas, ReferenceAnnotation.class)) {
             Pair<Integer, String> sentence = Pair.of(ref.getBegin(), ref.getCoveredText());
-            writer.write(String.format("%d || %s", sentence.getLeft(), sentence.getRight()));
+            writer.write(String.format("%d::%s", sentence.getLeft(), sentence.getRight()));
         }
     }
 }
