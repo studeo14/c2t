@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Graf Research Corporation
+copyright (c) 2018-2019
+Graf Research Proprietary - Do Not Distribute
+
+ -->
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>typeSystemDescriptor</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <types>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.TableCharacter</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Character</supertypeName>
+            <features/>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.TableCell</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.RectangleAnnotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>empty</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.Boolean</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.TableRow</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.RectangleAnnotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>cells</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>com.grafresearch.jpdf_parser.uima.annotations.TableCell</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>translatedSentences</name>
+                    <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.Table</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.SentenceCollection</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>rows</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>com.grafresearch.jpdf_parser.uima.annotations.TableRow</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>caption</name>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.Caption</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

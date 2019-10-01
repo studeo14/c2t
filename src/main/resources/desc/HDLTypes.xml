@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Graf Research Corporation
+copyright (c) 2018-2019
+Graf Research Proprietary - Do Not Distribute
+
+ -->
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>typeSystemDescriptor</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <types>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.Signal</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.MultiLineAnnotation</supertypeName>
+            <features/>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.Module</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Signal</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>verilogModule</name>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.VerilogModule</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.Port</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Signal</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>verilogPort</name>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.VerilogPort</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.VerilogModule</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>name</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>ports</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>com.grafresearch.jpdf_parser.uima.annotations.VerilogPort</elementType>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.VerilogPort</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>name</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

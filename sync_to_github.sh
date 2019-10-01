@@ -19,7 +19,7 @@ check_github_remote () {
 
 add_github_remote () {
     set +x
-    git remote add $GITHUB_ORIGIN git@github.com:grc4delv/datasheet_processor.git
+    git remote add $GITHUB_ORIGIN git@github.com:grc4delv/cas2text.git
     set -x
 }
 

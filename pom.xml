@@ -174,7 +174,7 @@
                 <configuration>
                     <limitToProject>true</limitToProject>
                     <typeSystemIncludes>
-                        <typeSystemInclude>src/main/resources/typeSystemDescriptor.xml</typeSystemInclude>
+                        <typeSystemInclude>src/main/resources/desc/*Types.xml</typeSystemInclude>
                     </typeSystemIncludes>
                 </configuration>
                 <executions>
