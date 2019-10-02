@@ -34,41 +34,41 @@ public class CommentTextWriter {
                     // do header stuff
                     logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
-                    writer.write(String.format("%d::%s\n", sr.getBegin(), sr.getCoveredText()));
+                    writer.write(String.format("%d::N::%s\n", sr.getBegin(), sr.getCoveredText()));
                 }
             } else if (sentenceCollectionReference instanceof TableReference) {
                 TableReference tr = (TableReference) sentenceCollectionReference;
                 var caption = tr.getReference().getCaption();
                 logger.info("Table Start: {}", tr.getBegin());
-                writer.write(String.format("%d::Table Start: \"%s\"\n", tr.getBegin(), caption));
+                writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), caption));
                 int lastEnd = tr.getBegin();
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
                     logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
-                    writer.write(String.format("%d::%s\n", sr.getBegin(), sr.getCoveredText()));
+                    writer.write(String.format("%d::N::%s\n", sr.getBegin(), sr.getCoveredText()));
                     if (sr.getEnd() > lastEnd) {
                         lastEnd = sr.getEnd();
                     }
                 }
                 logger.info("Table End: {}", lastEnd);
-                writer.write(String.format("%d::Table End: \"%s\"\n", lastEnd, caption));
+                writer.write(String.format("%d::M::Table End: \"%s\"\n", lastEnd, caption));
             } else if (sentenceCollectionReference instanceof ListReference) {
                 ListReference lr = (ListReference) sentenceCollectionReference;
                 logger.info("List Start: {}", lr.getBegin());
-                writer.write(String.format("%d::List Start\n", lr.getBegin()));
+                writer.write(String.format("%d::M::List Start\n", lr.getBegin()));
                 int lastEnd = lr.getBegin();
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
                     logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
-                    writer.write(String.format("%d::%s\n", sr.getBegin(), sr.getCoveredText()));
+                    writer.write(String.format("%d::N::%s\n", sr.getBegin(), sr.getCoveredText()));
                     if (sr.getEnd() > lastEnd) {
                         lastEnd = sr.getEnd();
                     }
                 }
                 logger.info("List End: {}", lastEnd);
-                writer.write(String.format("%d::List End\n", lastEnd));
+                writer.write(String.format("%d::M::List End\n", lastEnd));
             } else if (sentenceCollectionReference instanceof FigureReference) {
                 // TODO: do this?
             }
@@ -81,13 +81,13 @@ public class CommentTextWriter {
             if (currentHeader != lastHeader) {
                 if (lastHeader != null) {
                     logger.info("Section End: {}::{}", lastHeader.getEnd(), lastHeader.getCoveredText());
-                    writer.write(String.format("%d::Section End: \"%s\"\n", lastHeader.getEnd(), lastHeader.getCoveredText()));
+                    writer.write(String.format("%d::M::Section End: \"%s\"\n", lastHeader.getEnd(), lastHeader.getCoveredText()));
                 }
                 // change header
                 lastHeader = currentHeader;
                 // add a sentence
                 logger.info("Section Start: {}::{}", lastHeader.getBegin(), lastHeader.getCoveredText());
-                writer.write(String.format("%d::Section start: \"%s\"\n", lastHeader.getBegin(), lastHeader.getCoveredText()));
+                writer.write(String.format("%d::M::Section start: \"%s\"\n", lastHeader.getBegin(), lastHeader.getCoveredText()));
             }
         }
         writer.close();
