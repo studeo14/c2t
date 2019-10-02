@@ -11,9 +11,6 @@ public class CLIOptions {
     @Option(names={"-o", "--output"}, paramLabel="OUTPUTFILE", description="the output text file")
     public File outputFile;
 
-    @Option(names={"--include-headers"}, description="process headers from cas")
-    public boolean useHeaders = true;
-
     @Option(names={"-h", "--help"}, usageHelp=true, description="display this help message")
     private boolean usageHelpRequested;
 }

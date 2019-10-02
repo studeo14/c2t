@@ -28,10 +28,10 @@ class Main {
         if (cli.isUsageHelpRequested()) {
             cli.usage(System.out);
         } else if (options.outputFile != null) {
-            CasReader.readCas(options.inputFile, options.outputFile, options.useHeaders);
+            CasReader.readCas(options.inputFile, options.outputFile);
         } else {
             File actualOutput = new File(options.inputFile.getName() + ".txt");
-            CasReader.readCas(options.inputFile, actualOutput, options.useHeaders);
+            CasReader.readCas(options.inputFile, actualOutput);
         }
     }
 }

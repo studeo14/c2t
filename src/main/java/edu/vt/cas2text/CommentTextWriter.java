@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CommentTextWriter {
     private final static Logger logger = LogManager.getLogger(CommentTextWriter.class);
-    public static void process(JCas jCas, File output, boolean includeHeaders) throws AnalysisEngineProcessException, IOException {
+    public static void process(JCas jCas, File output) throws AnalysisEngineProcessException, IOException {
         JCas postJcas;
         try {
             postJcas = jCas.getView("processedText");

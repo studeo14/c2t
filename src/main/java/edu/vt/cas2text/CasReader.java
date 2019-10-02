@@ -18,7 +18,7 @@ import java.io.IOException;
 public class CasReader {
     private static final Logger logger = LogManager.getLogger(CasReader.class);
 
-    public static void readCas(File input, File output, boolean header) throws IOException {
+    public static void readCas(File input, File output) throws IOException {
         //
         try {
             // use type auto-detection
@@ -33,7 +33,7 @@ public class CasReader {
             CasIOUtils.load(new FileInputStream(input), cas);
             // run through the annotator
             var jcas = cas.getJCas();
-            CommentTextWriter.process(jcas, output, header);
+            CommentTextWriter.process(jcas, output);
         } catch (ResourceInitializationException | AnalysisEngineProcessException | CASException e) {
             logger.fatal(e);
         }
