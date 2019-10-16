@@ -3,6 +3,7 @@ package edu.vt.cas2text;
 import com.grafresearch.jpdf_parser.uima.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.tools.ant.taskdefs.Manifest;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.fit.util.JCasUtil;
@@ -25,7 +26,6 @@ public class CommentTextWriter {
         var writer = new BufferedWriter(new OutputStreamWriter(outStream));
         // process text
         // go through each sentence collection
-        Header lastHeader = null;
         // write sentences (all types)
         for (SentenceCollectionReference sentenceCollectionReference: JCasUtil.select(postJcas, SentenceCollectionReference.class)) {
             // look at type
@@ -38,7 +38,7 @@ public class CommentTextWriter {
                 }
             } else if (sentenceCollectionReference instanceof TableReference) {
                 TableReference tr = (TableReference) sentenceCollectionReference;
-                var caption = tr.getReference().getCaption();
+                var caption = tr.getReference().getCaption().getCoveredText();
                 logger.info("Table Start: {}", tr.getBegin());
                 writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), caption));
                 int lastEnd = tr.getBegin();
@@ -73,6 +73,8 @@ public class CommentTextWriter {
                 // TODO: do this?
             }
         }
+        Header lastHeader = null;
+        SectionReference lastSection = null;
         // write section headers
         for (SectionReference sectionReference : JCasUtil.select(postJcas, SectionReference.class)) {
             // handle section/header stuff
@@ -80,14 +82,15 @@ public class CommentTextWriter {
             // check if a new section
             if (currentHeader != lastHeader) {
                 if (lastHeader != null) {
-                    logger.info("Section End: {}::{}", lastHeader.getEnd(), lastHeader.getCoveredText());
-                    writer.write(String.format("%d::M::Section End: \"%s\"\n", lastHeader.getEnd(), lastHeader.getCoveredText()));
+                    logger.info("Section End: {}::{}", lastSection.getEnd(), lastHeader.getCoveredText());
+                    writer.write(String.format("%d::M::Section End: \"%s\"\n", lastSection.getEnd(), lastHeader.getCoveredText()));
                 }
                 // change header
                 lastHeader = currentHeader;
+                lastSection = sectionReference;
                 // add a sentence
-                logger.info("Section Start: {}::{}", lastHeader.getBegin(), lastHeader.getCoveredText());
-                writer.write(String.format("%d::M::Section start: \"%s\"\n", lastHeader.getBegin(), lastHeader.getCoveredText()));
+                logger.info("Section Start: {}::{}", sectionReference.getBegin(), lastHeader.getCoveredText());
+                writer.write(String.format("%d::M::Section start: \"%s\"\n", sectionReference.getBegin(), lastHeader.getCoveredText()));
             }
         }
         writer.close();
