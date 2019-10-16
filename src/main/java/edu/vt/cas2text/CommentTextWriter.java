@@ -38,7 +38,11 @@ public class CommentTextWriter {
                 }
             } else if (sentenceCollectionReference instanceof TableReference) {
                 TableReference tr = (TableReference) sentenceCollectionReference;
-                var caption = tr.getReference().getCaption().getCoveredText();
+                var caption = tr.getReference().getCaption();
+                var captionText = "";
+                if (caption != null) {
+                    captionText = caption.getCoveredText();
+                }t s
                 logger.info("Table Start: {}", tr.getBegin());
                 writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), caption));
                 int lastEnd = tr.getBegin();
