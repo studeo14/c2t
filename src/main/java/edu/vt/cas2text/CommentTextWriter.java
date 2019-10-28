@@ -45,18 +45,14 @@ public class CommentTextWriter {
                 }
                 logger.info("Table Start: {}::{}", tr.getBegin(), captionText);
                 writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), captionText));
-                int lastEnd = tr.getBegin();
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
                     logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
                     writer.write(String.format("%d::N::%s\n", sr.getBegin(), sr.getCoveredText()));
-                    if (sr.getEnd() > lastEnd) {
-                        lastEnd = sr.getEnd();
-                    }
                 }
-                logger.info("Table End: {}", lastEnd);
-                writer.write(String.format("%d::M::Table End: \"%s\"\n", lastEnd, captionText));
+                logger.info("Table End: {}", tr.getEnd());
+                writer.write(String.format("%d::M::Table End: \"%s\"\n", tr.getEnd(), captionText));
             } else if (sentenceCollectionReference instanceof ListReference) {
                 ListReference lr = (ListReference) sentenceCollectionReference;
                 logger.info("List Start: {}", lr.getBegin());
@@ -76,19 +72,11 @@ public class CommentTextWriter {
         for (SectionReference sectionReference : JCasUtil.select(postJcas, SectionReference.class)) {
             // handle section/header stuff
             Header currentHeader = sectionReference.getReference();
-            // check if a new section
-            if (currentHeader != lastHeader) {
-                if (lastHeader != null) {
-                    logger.info("Section End: {}::{}", lastSection.getEnd(), lastHeader.getCoveredText());
-                    writer.write(String.format("%d::M::Section End: \"%s\"\n", lastSection.getEnd(), lastHeader.getCoveredText()));
-                }
-                // change header
-                lastHeader = currentHeader;
-                lastSection = sectionReference;
-                // add a sentence
-                logger.info("Section Start: {}::{}", sectionReference.getBegin(), lastHeader.getCoveredText());
-                writer.write(String.format("%d::M::Section start: \"%s\"\n", sectionReference.getBegin(), lastHeader.getCoveredText()));
-            }
+            var headerText = currentHeader.getCoveredText();
+            logger.info("Section Start: {}::{}", sectionReference.getBegin(), headerText);
+            writer.write(String.format("%d::M::Section start: \"%s\"\n", sectionReference.getBegin(), headerText));
+            logger.info("Section End: {}::{}", sectionReference.getEnd(), headerText);
+            writer.write(String.format("%d::M::Section End: \"%s\"\n", sectionReference.getEnd(), headerText));
         }
         writer.close();
     }
