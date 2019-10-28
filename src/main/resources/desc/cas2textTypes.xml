@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Graf Research Corporation
+copyright (c) 2018-2019
+Graf Research Proprietary - Do Not Distribute
+
+ -->
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>sentence_classifier_types</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <types>
+        <typeDescription>
+            <name>edu.vt.text2cas.uima.annotations.ProcessedSentence</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>is_comment</name>
+                    <rangeTypeName>uima.cas.Boolean</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>wordids</name>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>edu.vt.text2cas.uima.annotations.WordId</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>tokens</name>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>edu.vt.text2cas.uima.annotations.Token</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>originalReference</name>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.vt.text2cas.uima.annotations.WordId</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>word_type</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>number</name>
+                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>option</name>
+                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>deserialized</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.vt.text2cas.uima.annotations.Token</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>token_id</name>
+                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>token_type</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>stream</name>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>edu.vt.text2cas.uima.annotations.WordId</elementType>
+                </featureDescription>
+            </features>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

@@ -18,6 +18,12 @@ Graf Research Proprietary - Do Not Distribute
             <features/>
         </typeDescription>
         <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.ListCaption</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Caption</supertypeName>
+            <features/>
+        </typeDescription>
+        <typeDescription>
             <name>com.grafresearch.jpdf_parser.uima.annotations.ListItem</name>
             <description/>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.RectangleAnnotation</supertypeName>
@@ -25,26 +31,6 @@ Graf Research Proprietary - Do Not Distribute
                 <featureDescription>
                     <name>fullBegin</name>
                     <rangeTypeName>uima.cas.Integer</rangeTypeName>
-                </featureDescription>
-                <featureDescription>
-                    <name>fullEnd</name>
-                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
-                </featureDescription>
-                <featureDescription>
-                    <name>fullX</name>
-                    <rangeTypeName>uima.cas.Double</rangeTypeName>
-                </featureDescription>
-                <featureDescription>
-                    <name>fullY</name>
-                    <rangeTypeName>uima.cas.Double</rangeTypeName>
-                </featureDescription>
-                <featureDescription>
-                    <name>fullWidth</name>
-                    <rangeTypeName>uima.cas.Double</rangeTypeName>
-                </featureDescription>
-                <featureDescription>
-                    <name>fullHeight</name>
-                    <rangeTypeName>uima.cas.Double</rangeTypeName>
                 </featureDescription>
                 <featureDescription>
                     <name>subListItems</name>
@@ -64,6 +50,10 @@ Graf Research Proprietary - Do Not Distribute
                     <description/>
                     <rangeTypeName>uima.cas.FSArray</rangeTypeName>
                     <elementType>com.grafresearch.jpdf_parser.uima.annotations.ListItem</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>caption</name>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.ListCaption</rangeTypeName>
                 </featureDescription>
             </features>
         </typeDescription>

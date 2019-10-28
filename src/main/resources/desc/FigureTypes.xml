@@ -18,12 +18,18 @@ Graf Research Proprietary - Do Not Distribute
             <features/>
         </typeDescription>
         <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.FigureCaption</name>
+            <description/>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Caption</supertypeName>
+            <features/>
+        </typeDescription>
+        <typeDescription>
             <name>com.grafresearch.jpdf_parser.uima.annotations.Figure</name>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.SentenceCollection</supertypeName>
             <features>
                 <featureDescription>
                     <name>caption</name>
-                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.Caption</rangeTypeName>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.FigureCaption</rangeTypeName>
                 </featureDescription>
                 <featureDescription>
                     <name>translatedSentences</name>

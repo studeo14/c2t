@@ -12,26 +12,26 @@ Graf Research Proprietary - Do Not Distribute
     <vendor/>
     <types>
         <typeDescription>
-            <name>com.grafresearch.jpdf_parser.uima.annotations.CommentMultiLine</name>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.ProcessedMultiLine</name>
             <description/>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.MultiLineAnnotation</supertypeName>
             <features>
                 <featureDescription>
-                    <name>isComment</name>
+                    <name>processedSentence</name>
                     <description/>
-                    <rangeTypeName>uima.cas.Boolean</rangeTypeName>
+                    <rangeTypeName>edu.vt.text2cas.uima.annotations.ProcessedSentence</rangeTypeName>
                 </featureDescription>
             </features>
         </typeDescription>
         <typeDescription>
-            <name>com.grafresearch.jpdf_parser.uima.annotations.CommentRect</name>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.ProcessedRect</name>
             <description/>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.RectangleAnnotation</supertypeName>
             <features>
                 <featureDescription>
-                    <name>isComment</name>
+                    <name>processedSentence</name>
                     <description/>
-                    <rangeTypeName>uima.cas.Boolean</rangeTypeName>
+                    <rangeTypeName>edu.vt.text2cas.uima.annotations.ProcessedSentence</rangeTypeName>
                 </featureDescription>
             </features>
         </typeDescription>

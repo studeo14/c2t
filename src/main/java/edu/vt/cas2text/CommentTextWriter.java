@@ -42,9 +42,9 @@ public class CommentTextWriter {
                 var captionText = "";
                 if (caption != null) {
                     captionText = caption.getCoveredText();
-                }t s
-                logger.info("Table Start: {}", tr.getBegin());
-                writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), caption));
+                }
+                logger.info("Table Start: {}::{}", tr.getBegin(), captionText);
+                writer.write(String.format("%d::M::Table Start: \"%s\"\n", tr.getBegin(), captionText));
                 int lastEnd = tr.getBegin();
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
@@ -56,23 +56,16 @@ public class CommentTextWriter {
                     }
                 }
                 logger.info("Table End: {}", lastEnd);
-                writer.write(String.format("%d::M::Table End: \"%s\"\n", lastEnd, caption));
+                writer.write(String.format("%d::M::Table End: \"%s\"\n", lastEnd, captionText));
             } else if (sentenceCollectionReference instanceof ListReference) {
                 ListReference lr = (ListReference) sentenceCollectionReference;
                 logger.info("List Start: {}", lr.getBegin());
                 writer.write(String.format("%d::M::List Start\n", lr.getBegin()));
-                int lastEnd = lr.getBegin();
-                for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
-                    // do header stuff
-                    logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
-                    // write sentence
-                    writer.write(String.format("%d::N::%s\n", sr.getBegin(), sr.getCoveredText()));
-                    if (sr.getEnd() > lastEnd) {
-                        lastEnd = sr.getEnd();
-                    }
+                for (ListItemReference sr: JCasUtil.selectCovered(ListItemReference.class, sentenceCollectionReference)) {
+                    processListItem(sr, writer);
                 }
-                logger.info("List End: {}", lastEnd);
-                writer.write(String.format("%d::M::List End\n", lastEnd));
+                logger.info("List End: {}", lr.getEnd());
+                writer.write(String.format("%d::M::List End\n", lr.getEnd()));
             } else if (sentenceCollectionReference instanceof FigureReference) {
                 // TODO: do this?
             }
@@ -98,6 +91,21 @@ public class CommentTextWriter {
             }
         }
         writer.close();
+    }
+
+    private static void processListItem(ListItemReference listItemReference, BufferedWriter writer) throws IOException {
+        logger.info("{}::{}", listItemReference.getBegin(), listItemReference.getCoveredText());
+        // write sentence
+        writer.write(String.format("%d::N::%s\n", listItemReference.getBegin(), listItemReference.getCoveredText()));
+        for (SubListReference sublist: JCasUtil.selectCovered(SubListReference.class, listItemReference)) {
+            logger.info("List Start: {}", sublist.getBegin());
+            writer.write(String.format("%d::M::List Start\n", sublist.getBegin()));
+            for (ListItemReference sr: JCasUtil.selectCovered(ListItemReference.class, sublist)) {
+                processListItem(sr, writer);
+            }
+            logger.info("List End: {}", sublist.getEnd());
+            writer.write(String.format("%d::M::List End\n", sublist.getEnd()));
+        }
     }
 }
 

@@ -90,6 +90,30 @@ Graf Research Proprietary - Do Not Distribute
             </features>
         </typeDescription>
         <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.ListItemReference</name>
+            <description/>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>reference</name>
+                    <description/>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.ListItem</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.SubListReference</name>
+            <description/>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>reference</name>
+                    <description/>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.ListItem</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
             <name>com.grafresearch.jpdf_parser.uima.annotations.SentenceReference</name>
             <description/>
             <supertypeName>uima.tcas.Annotation</supertypeName>
@@ -115,7 +139,7 @@ Graf Research Proprietary - Do Not Distribute
                 <featureDescription>
                     <name>reference</name>
                     <description/>
-                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.TableRow</rangeTypeName>
+                    <rangeTypeName>com.grafresearch.jpdf_parser.uima.annotations.TableSentenceTranslation</rangeTypeName>
                 </featureDescription>
             </features>
         </typeDescription>
