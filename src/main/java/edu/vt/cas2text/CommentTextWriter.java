@@ -82,9 +82,9 @@ public class CommentTextWriter {
     }
 
     private static void processListItem(ListItemReference listItemReference, BufferedWriter writer) throws IOException {
-        logger.info("{}::{}", listItemReference.getBegin(), listItemReference.getCoveredText());
+        logger.info("{}::{}", listItemReference.getBegin(), listItemReference.getCoveredText().replaceAll("\n", " "));
         // write sentence
-        writer.write(String.format("%d::N::%s\n", listItemReference.getBegin(), listItemReference.getCoveredText()));
+        writer.write(String.format("%d::N::%s\n", listItemReference.getBegin(), listItemReference.getCoveredText().replaceAll("\n", " ")));
         for (SubListReference sublist: JCasUtil.selectCovered(SubListReference.class, listItemReference)) {
             logger.info("List Start: {}", sublist.getBegin());
             writer.write(String.format("%d::M::List Start\n", sublist.getBegin()));

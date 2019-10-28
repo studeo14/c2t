@@ -4,14 +4,10 @@
 0::M::Table Start: "Revision History"
 0::M::Table End: "Revision History"
 357::M::List Start
-357::N::WISHBONE interface in 32-bit or 8-bit data bus modes (selectable)
-
-423::N::FIFO only operation
-
-443::N::Register level and functionality compatibility with NS16550A (but not 16450).
-
-521::N::Debug Interface in 32-bit data bus mode.
-
+357::N::WISHBONE interface in 32-bit or 8-bit data bus modes (selectable) 
+423::N::FIFO only operation 
+443::N::Register level and functionality compatibility with NS16550A (but not 16450). 
+521::N::Debug Interface in 32-bit data bus mode. 
 562::M::List End
 562::M::Table Start: "Introduction"
 562::N::The Port CLK is an Input.
@@ -343,34 +339,21 @@
 20827::N::The selection between 32- and 8-bits data bus modes is performed by defining DATA_BUS_WIDTH_8 in uart_defines.v, uart_top.v or on the compiler/synthesizer tool command line.
 21001::N::Upon reset the core performs the following tasks:
 21051::M::List Start
-21051::N::The receiver and transmitter FIFOs are cleared.
-
-21099::N::The receiver and transmitter shift registers are cleared
-
-21156::N::The Divisor Latch register is set to 0.
-
-21196::N::The Line Control Register is set to communication of 8 bits of data, no parity, 1 stop bit.
-
-21288::N::All interrupts are disabled in the Interrupt Enable Register.
-
+21051::N::The receiver and transmitter FIFOs are cleared. 
+21099::N::The receiver and transmitter shift registers are cleared 
+21156::N::The Divisor Latch register is set to 0. 
+21196::N::The Line Control Register is set to communication of 8 bits of data, no parity, 1 stop bit. 
+21288::N::All interrupts are disabled in the Interrupt Enable Register. 
 21350::M::List End
 21350::N::For proper operation, perform the following:
 21395::M::List Start
-21395::N::Set the Line Control Register to the desired line control parameters.
-Set bit 7 to ‘1’ to allow access to the Divisor Latches.
-
+21395::N::Set the Line Control Register to the desired line control parameters. Set bit 7 to ‘1’ to allow access to the Divisor Latches. 
 21522::M::List End
 21522::M::List Start
-21522::N::Set the Divisor Latches, MSB first, LSB next.
-
-21568::N::Set bit 7 of LCR to ‘0’ to disable access to Divisor Latches.
-At this time the transmission engine starts working and data can be sent and received.
-
-21717::N::Set the FIFO trigger level.
-Generally, higher trigger level values produce less interrupt to the system, so setting it to 14 bytes is recommended if the system responds fast enough.
-
-21899::N::Enable desired interrupts by setting appropriate bits in the Interrupt Enable register.
-
+21522::N::Set the Divisor Latches, MSB first, LSB next. 
+21568::N::Set bit 7 of LCR to ‘0’ to disable access to Divisor Latches. At this time the transmission engine starts working and data can be sent and received. 
+21717::N::Set the FIFO trigger level. Generally, higher trigger level values produce less interrupt to the system, so setting it to 14 bytes is recommended if the system responds fast enough. 
+21899::N::Enable desired interrupts by setting appropriate bits in the Interrupt Enable register. 
 21987::M::List End
 21987::N::Remember that (Input Clock Speed)/(Divisor Latch value) = 16 x the communication baud rate.
 22079::N::Since the protocol is asynchronous and the sampling of the bits is performed in the perceived middle of the bit time, it is highly immune to small differences in the clocks of the sending and receiving sides, yet no such assumption should be made when calculating the Divisor Latch values.
