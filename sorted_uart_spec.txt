@@ -1,8 +1,11 @@
+0;0;M;Table End: "Revision History"
+0;1;M;Section End: "Revision History"
+0;2;M;Section start: "Introduction"
+0;2;M;Section start: "Revision History"
+0;3;M;Table Start: "Revision History"
 0;4;N;The UART (Universal Asynchronous Receiver/Transmitter) core provides serial communication capabilities, which allow communication with modem or other external devices, like another computer using a serial cable and RS232 protocol.
 231;4;N;This core is designed to be maximally compatible with the industry standard National Semiconductors’ 16550A device.
 347;4;N;Features:
-0;3;M;Table Start: "Revision History"
-0;0;M;Table End: "Revision History"
 357;3;M;List Start
 357;4;N;WISHBONE interface in 32-bit or 8-bit data bus modes (selectable)
 423;4;N;FIFO only operation
@@ -41,6 +44,8 @@
 2095;4;N;The Port OpenCores UART16550 core specifications 8/11/2002 www.opencores.org Rev 0.6 2 of 16 2 IO ports 2.1 WISHBONE interface signals Port Width Direction Description CLK 1 Input Block’s clock input WB_RST_I 1 Input Asynchronous Reset WB_ADDR_I 5 or 3 Input Used for register selection WB_SEL_I 4 Input Select signal WB_DAT_I 32 or 8 Input Data input WB_DAT_O 32 or 8 Output Data output WB_WE_I 1 Input Write or read cycle selection WB_STB_I 1 Input Specifies transfer cycle WB_CYC_I 1 Input A bus cycle is in progress WB_ACK_O has a width of 1.
 2642;4;N;The Port OpenCores UART16550 core specifications 8/11/2002 www.opencores.org Rev 0.6 2 of 16 2 IO ports 2.1 WISHBONE interface signals Port Width Direction Description CLK 1 Input Block’s clock input WB_RST_I 1 Input Asynchronous Reset WB_ADDR_I 5 or 3 Input Used for register selection WB_SEL_I 4 Input Select signal WB_DAT_I 32 or 8 Input Data input WB_DAT_O 32 or 8 Output Data output WB_WE_I 1 Input Write or read cycle selection WB_STB_I 1 Input Specifies transfer cycle WB_CYC_I 1 Input A bus cycle is in progress WB_ACK_O is Acknowledge of a transfer.
 3201;0;M;Table End: "Introduction"
+3201;1;M;Section End: "Introduction"
+3201;2;M;Section start: "2.2 Other internal signals"
 3201;3;M;Table Start: "2.2 Other internal signals"
 3201;4;N;The Port INT_O is an Output.
 3230;4;N;The Port INT_O has a width of 1.
@@ -51,6 +56,8 @@
 3397;4;N;The signal here is the 16 x actual baud rate.
 3443;4;N;It is enabled if UART_HAS_BAUDRATE_OUTPUT is defined
 3496;0;M;Table End: "2.2 Other internal signals"
+3496;1;M;Section End: "2.2 Other internal signals"
+3496;2;M;Section start: "2.3 External (off-chip) connections"
 3496;3;M;Table Start: "2.3 External (off-chip) connections"
 3496;4;N;The Port STX_PAD_O is an Output.
 3529;4;N;The Port STX_PAD_O has a width of 1.
@@ -77,6 +84,8 @@
 4301;4;N;The Port DCD_PAD_I has a width of 1.
 4338;4;N;The Port DCD_PAD_I is Data Carrier Detect.
 4381;0;M;Table End: "2.3 External (off-chip) connections"
+4381;1;M;Section End: "2.3 External (off-chip) connections"
+4381;2;M;Section start: "Clocks"
 4381;4;N;Clocks table:
 4395;3;M;Table Start: "Clocks"
 4395;4;N;When Name is , then Rates (MHz) is Max.
@@ -84,6 +93,8 @@
 4452;4;N;When Name is clk, then Source is WISHBONE bus, Rates (MHz) is 1258Mhz for 1200 bps.
 4536;4;N;The Name clk is 3.6864 for 115200 bps.
 4575;0;M;Table End: "Clocks"
+4575;1;M;Section End: "Clocks"
+4575;2;M;Section start: "4.1 Registers list"
 4575;3;M;Table Start: "4.1 Registers list"
 4575;4;N;When Name is Receiver Buffer, then Address is 0, Width is 8, Access is R.
 4649;4;N;The Name Receiver Buffer is Receiver FIFO output.
@@ -120,6 +131,8 @@
 6506;4;N;When Name is Debug 2, then Address is 12, Width is 32, Access is R.
 6574;4;N;The Name Debug 2 is Second debug register.
 6617;0;M;Table End: "4.1 Registers list"
+6617;1;M;Section End: "4.1 Registers list"
+6617;2;M;Section start: "4.2 Interrupt Enable Register (IER)"
 6617;4;N;This register allows enabling and disabling interrupt generation by the UART.
 6695;3;M;Table Start: "4.2 Interrupt Enable Register (IER)"
 6695;4;N;When Bit # is 0, then Access is RW.
@@ -135,6 +148,8 @@
 7208;4;N;Should be logic ‘0’.
 7229;0;M;Table End: "4.2 Interrupt Enable Register (IER)"
 7229;4;N;Reset Value: 00h
+7246;1;M;Section End: "4.2 Interrupt Enable Register (IER)"
+7246;2;M;Section start: "4.3 Interrupt Identification Register (IIR)"
 7246;4;N;The IIR enables the programmer to retrieve what is the current highest priority pending interrupt.
 7345;4;N;Bit 0 indicates that an interrupt is pending when it’s logic ‘0’.
 7411;4;N;When it’s ‘1’ – no interrupt is pending.
@@ -149,6 +164,8 @@
 8829;4;N;Bits 4 and 5: Logic ‘0’.
 8854;4;N;Bits 6 and 7: Logic ‘1’ for compatibility reason.
 8904;4;N;Reset Value: C1h
+8921;1;M;Section End: "4.3 Interrupt Identification Register (IIR)"
+8921;2;M;Section start: "4.4 FIFO Control Register (FCR)"
 8921;4;N;The FCR allows selection of the FIFO trigger level (the number of bytes in FIFO required to enable the Received Data Available interrupt).
 9060;4;N;In addition, the FIFOs can be cleared using this register.
 9119;3;M;Table Start: "4.4 FIFO Control Register (FCR)"
@@ -195,6 +212,8 @@
 12507;4;N;Reading from the register is allowed to check the current settings of the communication.
 12596;4;N;Reading from the register is allowed to check the current settings of the communication.
 12685;4;N;Reset Value: 00000011b
+12708;1;M;Section End: "4.4 FIFO Control Register (FCR)"
+12708;2;M;Section start: "4.6 Modem Control Register (MCR)"
 12708;4;N;The modem control register allows transferring control signals to a modem connected to the UART.
 12805;3;M;Table Start: "4.6 Modem Control Register (MCR)"
 12805;4;N;When Bit # is 0, then Access is W.
@@ -216,6 +235,8 @@
 13658;4;N;The Bit # 7-5 is Ignored.
 13684;0;M;Table End: "4.6 Modem Control Register (MCR)"
 13684;4;N;Reset Value: 0
+13699;1;M;Section End: "4.6 Modem Control Register (MCR)"
+13699;2;M;Section start: "4.7 Line Status Register (LSR)"
 13699;3;M;Table Start: "4.7 Line Status Register (LSR)"
 13699;4;N;When Bit # is 0, then Access is R.
 13734;4;N;Data Ready (DR) indicator.
@@ -264,6 +285,8 @@
 16091;4;N;cleared upon reading from the register.
 16131;4;N;‘0’ – Otherwise.
 16148;0;M;Table End: "4.7 Line Status Register (LSR)"
+16148;1;M;Section End: "4.7 Line Status Register (LSR)"
+16148;2;M;Section start: "4.8 Modem Status Register (MSR)"
 16148;4;N;The register displays the current state of the modem control lines.
 16216;4;N;Also, four bits also provide an indication in the state of one of the modem status lines.
 16306;4;N;These bits are set to ‘1’ when a change in corresponding line has been detected and they are reset when the register is being read.
@@ -286,6 +309,8 @@
 17316;4;N;When Bit # is 7, then Access is R.
 17351;4;N;The Bit # 7 is Complement of the DCD input or equals to Out2 in loopback mode.
 17430;0;M;Table End: "4.8 Modem Status Register (MSR)"
+17430;1;M;Section End: "4.8 Modem Status Register (MSR)"
+17430;2;M;Section start: "4.9 Divisor Latches"
 17430;4;N;The divisor latches can be accessed by setting the 7th bit of LCR to ‘1’.
 17504;4;N;You should restore this bit to ‘0’ after setting the divisor latches in order to restore access to the other registers that occupy the same addresses.
 17655;4;N;The 2 bytes form one 16-bit register, which is internally accessed as a single number.
@@ -293,6 +318,8 @@
 17823;4;N;The register is set to the default value of 0 on reset, which disables all serial I/O operations in order to ensure explicit setup of the register in the software.
 17987;4;N;The value set should be equal to (system clock speed) / (16 x desired baud rate).
 18069;4;N;The internal counter starts to work when the LSB of DL is written, so when setting the divisor, write the MSB first and the LSB last.
+18203;1;M;Section End: "4.9 Divisor Latches"
+18203;2;M;Section start: "4.10 Debug 1"
 18203;4;N;This register is only available when the core has 32-bit data bus and 5-bit address bus.
 18292;4;N;It is read only and is provided for debugging purposes of chip testing as it is not part of the original UART16550 device specifications.
 18430;4;N;Reading from the does not influence core’s bahaviour.
@@ -308,6 +335,8 @@
 18859;4;N;When Bit # is 31-24, then Access is R.
 18898;4;N;The Bit # 31-24 is Modem Status Register value.
 18946;0;M;Table End: "4.10 Debug 1"
+18946;1;M;Section End: "4.10 Debug 1"
+18946;2;M;Section start: "4.11 Debug 2"
 18946;4;N;This register is only available when the core has 32-bit data bus and 5-bit address bus.
 19035;4;N;It is read only and is provided for debugging purposes of chip testing as it is not part of the original UART16550 device specifications.
 19173;4;N;Reading from the does not influence core’s bahaviour.
@@ -328,6 +357,8 @@
 19831;4;N;Reserved.
 19841;4;N;Returned value is 0.
 19862;0;M;Table End: "4.11 Debug 2"
+19862;1;M;Section End: "4.11 Debug 2"
+19862;2;M;Section start: "Operation"
 19862;4;N;This UART core is very similar in operation to the standard 16550 UART chip with the main exception being that only the FIFO mode is supported.
 20006;4;N;The scratch register is removed, as it serves no purpose.
 20064;4;N;This core can operate in 8-bit data bus mode or in 32-bit bus mode, which is now the default mode.
@@ -337,6 +368,8 @@
 20590;4;N;In addition, in the 32-bit data bus mode a debug interface is present in the system.
 20675;4;N;This interface has 2 32-bit registers that can be read to provide non-intrusive look into the core’s registers and other internal values of importance.
 20827;4;N;The selection between 32- and 8-bits data bus modes is performed by defining DATA_BUS_WIDTH_8 in uart_defines.v, uart_top.v or on the compiler/synthesizer tool command line.
+21001;1;M;Section End: "Operation"
+21001;2;M;Section start: "5.1 Initialization"
 21001;4;N;Upon reset the core performs the following tasks:
 21051;3;M;List Start
 21051;4;N;The receiver and transmitter FIFOs are cleared.
@@ -360,44 +393,11 @@
 21987;0;M;List End
 21987;4;N;Remember that (Input Clock Speed)/(Divisor Latch value) = 16 x the communication baud rate.
 22079;4;N;Since the protocol is asynchronous and the sampling of the bits is performed in the perceived middle of the bit time, it is highly immune to small differences in the clocks of the sending and receiving sides, yet no such assumption should be made when calculating the Divisor Latch values.
+22369;1;M;Section End: "5.1 Initialization"
+22369;2;M;Section start: "Architecture"
 22369;4;N;The core implements the WISNBONE SoC bus interface for communication with the system.
 22455;4;N;It has an 8-bit data bus for compatibility reason.
 22506;4;N;The core requires one interrupt.
 22539;4;N;It requires 2 pads in the chip (serial in and serial out) and, optionally, another six modem control signals, which can otherwise be implemented using general purpose I/Os on the chip.
 22724;4;N;The block diagram of the core is on the following page.
-0;2;M;Section start: "Introduction"
-3201;1;M;Section End: "Introduction"
-0;2;M;Section start: "Revision History"
-0;1;M;Section End: "Revision History"
-3201;2;M;Section start: "2.2 Other internal signals"
-3496;1;M;Section End: "2.2 Other internal signals"
-3496;2;M;Section start: "2.3 External (off-chip) connections"
-4381;1;M;Section End: "2.3 External (off-chip) connections"
-4381;2;M;Section start: "Clocks"
-4575;1;M;Section End: "Clocks"
-4575;2;M;Section start: "4.1 Registers list"
-6617;1;M;Section End: "4.1 Registers list"
-6617;2;M;Section start: "4.2 Interrupt Enable Register (IER)"
-7246;1;M;Section End: "4.2 Interrupt Enable Register (IER)"
-7246;2;M;Section start: "4.3 Interrupt Identification Register (IIR)"
-8921;1;M;Section End: "4.3 Interrupt Identification Register (IIR)"
-8921;2;M;Section start: "4.4 FIFO Control Register (FCR)"
-12708;1;M;Section End: "4.4 FIFO Control Register (FCR)"
-12708;2;M;Section start: "4.6 Modem Control Register (MCR)"
-13699;1;M;Section End: "4.6 Modem Control Register (MCR)"
-13699;2;M;Section start: "4.7 Line Status Register (LSR)"
-16148;1;M;Section End: "4.7 Line Status Register (LSR)"
-16148;2;M;Section start: "4.8 Modem Status Register (MSR)"
-17430;1;M;Section End: "4.8 Modem Status Register (MSR)"
-17430;2;M;Section start: "4.9 Divisor Latches"
-18203;1;M;Section End: "4.9 Divisor Latches"
-18203;2;M;Section start: "4.10 Debug 1"
-18946;1;M;Section End: "4.10 Debug 1"
-18946;2;M;Section start: "4.11 Debug 2"
-19862;1;M;Section End: "4.11 Debug 2"
-19862;2;M;Section start: "Operation"
-21001;1;M;Section End: "Operation"
-21001;2;M;Section start: "5.1 Initialization"
-22369;1;M;Section End: "5.1 Initialization"
-22369;2;M;Section start: "Architecture"
 22780;1;M;Section End: "Architecture"
