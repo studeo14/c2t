@@ -12,6 +12,12 @@ Graf Research Proprietary - Do Not Distribute
     <vendor/>
     <types>
         <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.TableType</name>
+            <description/>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features/>
+        </typeDescription>
+        <typeDescription>
             <name>com.grafresearch.jpdf_parser.uima.annotations.TableCharacter</name>
             <description/>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.Character</supertypeName>
@@ -53,6 +59,12 @@ Graf Research Proprietary - Do Not Distribute
             <description/>
             <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.SentenceCollection</supertypeName>
             <features>
+                <featureDescription>
+                    <name>t_type</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                    <elementType>com.grafresearch.jpdf_parser.uima.annotations.TableType</elementType>
+                </featureDescription>
                 <featureDescription>
                     <name>rows</name>
                     <description/>

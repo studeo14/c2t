@@ -30,8 +30,32 @@ Graf Research Proprietary - Do Not Distribute
                     <elementType>edu.vt.text2cas.uima.annotations.Token</elementType>
                 </featureDescription>
                 <featureDescription>
+                    <name>semantic_expression</name>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>edu.vt.text2cas.uima.annotations.Frame</elementType>
+                </featureDescription>
+                <featureDescription>
+                    <name>ir</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
                     <name>originalReference</name>
                     <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.vt.text2cas.uima.annotations.Frame</name>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>frameid</name>
+                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>tokens</name>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>edu.vt.text2cas.uima.annotations.Token</elementType>
                 </featureDescription>
             </features>
         </typeDescription>

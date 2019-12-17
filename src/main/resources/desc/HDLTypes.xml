@@ -65,5 +65,19 @@ Graf Research Proprietary - Do Not Distribute
                 </featureDescription>
             </features>
         </typeDescription>
+        <typeDescription>
+            <name>com.grafresearch.jpdf_parser.uima.annotations.SVA</name>
+            <supertypeName>com.grafresearch.jpdf_parser.uima.annotations.MultiLineAnnotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>assertion</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>status</name>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
     </types>
 </typeSystemDescription>
