@@ -1,5 +1,6 @@
 package edu.vt.cas2text;
 
+import edu.vt.datasheet_text_processor.ProjectUtils;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.fit.factory.TypePrioritiesFactory;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class CasReader {
     private static final Logger logger = LoggerFactory.getLogger(CasReader.class);
 
-    public static void readCas(File input, File output) throws IOException {
+    public static void readCas(File input) throws IOException {
         //
         try {
             // use type auto-detection
@@ -30,9 +31,15 @@ public class CasReader {
             var cas = CasCreationUtils.createCas(tsd, tsp, null);
             // read in
             CasIOUtils.load(new FileInputStream(input), cas);
+            // create project file to use
+            var project = ProjectUtils.createEmptyProject(input);
             // run through the annotator
             var jcas = cas.getJCas();
-            CommentTextWriter.process(jcas, output);
+            CommentTextWriter.process(jcas, project);
+            logger.info("Wrote project file to {}.project", project.getName());
+            // write out
+            project.getDB().commit();
+            project.getDB().close();
         } catch (ResourceInitializationException | AnalysisEngineProcessException | CASException e) {
             logger.error(e.getMessage(), e);
         }

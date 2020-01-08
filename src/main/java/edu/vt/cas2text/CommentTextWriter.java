@@ -35,14 +35,14 @@ public class CommentTextWriter {
                     // do header stuff
                     logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
-                    writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
+                    addSentence(sr.getCoveredText(), sr.getBegin(), 4, project);
                 }
             } else if (sentenceCollectionReference instanceof TableReference) {
                 TableReference tr = (TableReference) sentenceCollectionReference;
                 var caption = tr.getReference().getCaption();
                 var captionText = "";
                 if (caption != null) {
-                    captionText = caption.getCoveredText();
+                    captionText = normalizeSpace(caption.getCoveredText());
                 }
                 logger.debug("Table Start: {}::{}", tr.getBegin(), captionText);
                 addSentence(String.format("Table Start: \"%s\"", captionText), tr.getBegin(), 3, Sentence.Type.META, project);
@@ -50,7 +50,7 @@ public class CommentTextWriter {
                     // do header stuff
                     logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
-                    writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
+                    addSentence(sr.getCoveredText(), sr.getBegin(), 4, project);
                 }
                 logger.debug("Table End: {}", tr.getEnd());
                 addSentence(String.format("Table End: \"%s\"", captionText), tr.getEnd(), 0, Sentence.Type.META, project);
@@ -65,7 +65,7 @@ public class CommentTextWriter {
                         // do header stuff
                         logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                         // write sentence
-                        writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
+                        addSentence(sr.getCoveredText(), sr.getBegin(), 4, project);
                     }
                     // do sublists start/end
                     for (SubListReference sublist: JCasUtil.selectCovered(SubListReference.class, ir)) {
@@ -93,7 +93,18 @@ public class CommentTextWriter {
             logger.debug("Section End: {}::{}", sectionReference.getEnd(), headerText);
             addSentence(String.format("Section End: \"%s\"", headerText), sectionReference.getEnd(), 1, Sentence.Type.META, project);
         }
-        writer.close();
+    }
+
+    private static void addSentence(String sentenceText, Integer begin, Integer priority, Project project) {
+        var sentences = project.getDB().getRepository(Sentence.class);
+        var sentence = new Sentence(begin, priority, sentenceText);
+        sentences.insert(sentence);
+    }
+
+    private static void addSentence(String sentenceText, Integer begin, Integer priority, Sentence.Type type, Project project) {
+        var sentences = project.getDB().getRepository(Sentence.class);
+        var sentence = new Sentence(begin, priority, sentenceText, type);
+        sentences.insert(sentence);
     }
 }
 
