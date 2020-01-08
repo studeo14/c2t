@@ -1,7 +1,5 @@
 package edu.vt.cas2text;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.fit.factory.TypePrioritiesFactory;
@@ -9,14 +7,15 @@ import org.apache.uima.fit.factory.TypeSystemDescriptionFactory;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.CasCreationUtils;
 import org.apache.uima.util.CasIOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CasReader {
-    private static final Logger logger = LogManager.getLogger(CasReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(CasReader.class);
 
     public static void readCas(File input, File output) throws IOException {
         //
@@ -35,7 +34,7 @@ public class CasReader {
             var jcas = cas.getJCas();
             CommentTextWriter.process(jcas, output);
         } catch (ResourceInitializationException | AnalysisEngineProcessException | CASException e) {
-            logger.fatal(e);
+            logger.error(e.getMessage(), e);
         }
     }
 }

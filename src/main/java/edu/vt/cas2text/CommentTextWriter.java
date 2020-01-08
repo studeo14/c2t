@@ -1,29 +1,30 @@
 package edu.vt.cas2text;
 
 import com.grafresearch.jpdf_parser.uima.annotations.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.tools.ant.taskdefs.Manifest;
+import edu.vt.datasheet_text_processor.Project;
+import edu.vt.datasheet_text_processor.Sentence;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
-import org.apache.uima.jcas.cas.FSArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+
+import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
 public class CommentTextWriter {
-    private final static Logger logger = LogManager.getLogger(CommentTextWriter.class);
-    public static void process(JCas jCas, File output) throws AnalysisEngineProcessException, IOException {
+    private final static Logger logger = LoggerFactory.getLogger(CommentTextWriter.class);
+    public static void process(JCas jCas, Project project) throws AnalysisEngineProcessException, IOException {
+        // get the proper view of the cas
         JCas postJcas;
         try {
             postJcas = jCas.getView("processedText");
         } catch (CASException e) {
             throw new AnalysisEngineProcessException(e);
         }
-        var outStream = new FileOutputStream(output);
-        var writer = new BufferedWriter(new OutputStreamWriter(outStream));
         // process text
         // go through each sentence collection
         // write sentences (all types)
@@ -32,7 +33,7 @@ public class CommentTextWriter {
             if (sentenceCollectionReference instanceof ParagraphReference) {
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
-                    logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
+                    logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
                     writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
                 }
@@ -43,39 +44,39 @@ public class CommentTextWriter {
                 if (caption != null) {
                     captionText = caption.getCoveredText();
                 }
-                logger.info("Table Start: {}::{}", tr.getBegin(), captionText);
-                writer.write(String.format("%d;3;M;Table Start: \"%s\"\n", tr.getBegin(), captionText));
+                logger.debug("Table Start: {}::{}", tr.getBegin(), captionText);
+                addSentence(String.format("Table Start: \"%s\"", captionText), tr.getBegin(), 3, Sentence.Type.META, project);
                 for (SentenceReference sr: JCasUtil.selectCovered(SentenceReference.class, sentenceCollectionReference)) {
                     // do header stuff
-                    logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
+                    logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                     // write sentence
                     writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
                 }
-                logger.info("Table End: {}", tr.getEnd());
-                writer.write(String.format("%d;0;M;Table End: \"%s\"\n", tr.getEnd(), captionText));
+                logger.debug("Table End: {}", tr.getEnd());
+                addSentence(String.format("Table End: \"%s\"", captionText), tr.getEnd(), 0, Sentence.Type.META, project);
             } else if (sentenceCollectionReference instanceof ListReference) {
                 ListReference lr = (ListReference) sentenceCollectionReference;
-                logger.info("List Start: {}", lr.getBegin());
-                writer.write(String.format("%d;3;M;List Start\n", lr.getBegin()));
+                logger.debug("List Start: {}", lr.getBegin());
+                addSentence("List Start", lr.getBegin(), 3, Sentence.Type.META, project);
                 for (ListItemReference ir: JCasUtil.selectCovered(ListItemReference.class, sentenceCollectionReference)) {
                     // TODO List Item start/end?
                     // do sentences
                     for (ListSentenceReference sr: JCasUtil.selectCovered(ListSentenceReference.class, ir)) {
                         // do header stuff
-                        logger.info("{}::{}", sr.getBegin(), sr.getCoveredText());
+                        logger.debug("{}::{}", sr.getBegin(), sr.getCoveredText());
                         // write sentence
                         writer.write(String.format("%d;4;N;%s\n", sr.getBegin(), sr.getCoveredText()));
                     }
                     // do sublists start/end
                     for (SubListReference sublist: JCasUtil.selectCovered(SubListReference.class, ir)) {
-                        logger.info("List Start: {}", sublist.getBegin());
-                        writer.write(String.format("%d;3;M;List Start\n", sublist.getBegin()));
-                        logger.info("List End: {}", sublist.getEnd());
-                        writer.write(String.format("%d;0;M;List End\n", sublist.getEnd()));
+                        logger.debug("List Start: {}", sublist.getBegin());
+                        addSentence("List Start", sublist.getBegin(), 3, Sentence.Type.META, project);
+                        logger.debug("List End: {}", sublist.getEnd());
+                        addSentence("List End", lr.getEnd(), 0, Sentence.Type.META, project);
                     }
                 }
-                logger.info("List End: {}", lr.getEnd());
-                writer.write(String.format("%d;0;M;List End\n", lr.getEnd()));
+                logger.debug("List End: {}", lr.getEnd());
+                addSentence("List End", lr.getEnd(), 0, Sentence.Type.META, project);
             } else if (sentenceCollectionReference instanceof FigureReference) {
                 // TODO: do this?
             }
@@ -86,11 +87,11 @@ public class CommentTextWriter {
         for (SectionReference sectionReference : JCasUtil.select(postJcas, SectionReference.class)) {
             // handle section/header stuff
             Header currentHeader = sectionReference.getReference();
-            var headerText = currentHeader.getCoveredText();
-            logger.info("Section Start: {}::{}", sectionReference.getBegin(), headerText);
-            writer.write(String.format("%d;2;M;Section start: \"%s\"\n", sectionReference.getBegin(), headerText));
-            logger.info("Section End: {}::{}", sectionReference.getEnd(), headerText);
-            writer.write(String.format("%d;1;M;Section End: \"%s\"\n", sectionReference.getEnd(), headerText));
+            var headerText = normalizeSpace(currentHeader.getCoveredText());
+            logger.debug("Section Start: {}::{}", sectionReference.getBegin(), headerText);
+            addSentence(String.format("Section Start: \"%s\"", headerText), sectionReference.getBegin(), 2, Sentence.Type.META, project);
+            logger.debug("Section End: {}::{}", sectionReference.getEnd(), headerText);
+            addSentence(String.format("Section End: \"%s\"", headerText), sectionReference.getEnd(), 1, Sentence.Type.META, project);
         }
         writer.close();
     }

@@ -1,17 +1,18 @@
 package edu.vt.cas2text;
 
-import picocli.CommandLine;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.config.Configurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import picocli.CommandLine;
 
 import edu.vt.cas2text.cli.CLIOptions;
-import edu.vt.cas2text.CasReader;
 
-import java.io.File;
 import java.io.IOException;
 
 class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String... args) {
         var options = new CLIOptions();
@@ -20,18 +21,18 @@ class Main {
             cli.parseArgs(args);
             handleCli(cli, options);
         } catch (CommandLine.MissingParameterException | IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 
     private static void handleCli(CommandLine cli, CLIOptions options) throws IOException {
         if (cli.isUsageHelpRequested()) {
             cli.usage(System.out);
-        } else if (options.outputFile != null) {
-            CasReader.readCas(options.inputFile, options.outputFile);
         } else {
-            File actualOutput = new File(options.inputFile.getName() + ".txt");
-            CasReader.readCas(options.inputFile, actualOutput);
+            if (options.verbose) {
+                Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.DEBUG);
+            }
+            CasReader.readCas(options.inputFile);
         }
     }
 }

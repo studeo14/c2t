@@ -8,8 +8,8 @@ public class CLIOptions {
     @Option(names={"-f", "--file"}, required=true, paramLabel="INPUTFILE", description="the input cas file")
     public File inputFile;
 
-    @Option(names={"-o", "--output"}, paramLabel="OUTPUTFILE", description="the output text file")
-    public File outputFile;
+    @Option(names={"-v", "--verbose"}, description="give additional information")
+    public boolean verbose;
 
     @Option(names={"-h", "--help"}, usageHelp=true, description="display this help message")
     private boolean usageHelpRequested;
