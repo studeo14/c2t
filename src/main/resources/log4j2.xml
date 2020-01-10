@@ -6,7 +6,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Logger name="edu.vt" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="fatal">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
