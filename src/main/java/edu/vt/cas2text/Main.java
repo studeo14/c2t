@@ -30,7 +30,7 @@ class Main {
             cli.usage(System.out);
         } else {
             if (options.verbose) {
-                Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.DEBUG);
+                Configurator.setAllLevels("edu.vt", Level.DEBUG);
             }
             CasReader.readCas(options.inputFile);
         }
