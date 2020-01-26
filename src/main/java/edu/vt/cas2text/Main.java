@@ -20,7 +20,10 @@ class Main {
         try {
             cli.parseArgs(args);
             handleCli(cli, options);
-        } catch (CommandLine.MissingParameterException | IOException e) {
+        } catch (CommandLine.MissingParameterException e) {
+            logger.warn(e.getMessage());
+            cli.usage(System.out);
+        } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
     }
