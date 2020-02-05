@@ -35,7 +35,11 @@ class Main {
             if (options.verbose) {
                 Configurator.setAllLevels("edu.vt", Level.DEBUG);
             }
-            CasReader.readCas(options.inputFile);
+            if (options.text) {
+                TextReader.readText(options.inputFile);
+            } else {
+                CasReader.readCas(options.inputFile);
+            }
         }
     }
 }

@@ -8,6 +8,9 @@ public class CLIOptions {
     @Option(names={"-f", "--file"}, required=true, paramLabel="INPUTFILE", description="the input cas file")
     public File inputFile;
 
+    @Option(names={"-t", "--text"}, description = "input file is raw text")
+    public boolean text;
+
     @Option(names={"-v", "--verbose"}, description="give additional information")
     public boolean verbose;
 
