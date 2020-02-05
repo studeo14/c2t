@@ -1,0 +1,12 @@
+if bit 3 is ‘1’ and bit 4 is ‘0’ then the parity bit is transmitted and checked as ‘1’.
+Signal AWUSER_WIDTH must be greater than or equal to 1.
+A value of 1 on Signal RDATA valid byte lines is not permitted when Signal RVALID is HIGH.
+When Signal AWVALID is asserted then it remains high until Signal AWREADY is high.
+A value of 0 on Signal AWID is not permitted when Signal AWVALID is HIGH
+Signal AWVALID is LOW for the first cycle after Signal ARESTEn goes high
+When Signal AWVALID is high and Signal AWCACHE[1] is LOW then Signal AWCACHE[3:2] are also LOW
+Signal AWID must remain stable when Signal AWVALID is asserted and Signal AWREADY is LOW
+
+
+
+

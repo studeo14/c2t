@@ -11,8 +11,18 @@ def run_inputs(tests):
     for test in tests:
         inFile = "./tests/{}/in.xmi".format(test)
         resFile = "./tests/{}/in.project".format(test)
-        res = subprocess.run(["java", "-jar", "./cas2text.jar", "-f", inFile])
-        os.rename("./in.project", resFile)
+        # check for raw text test
+        if Path(inFile).exists():
+            res = subprocess.run(["java", "-jar", "./cas2text.jar", "-f", inFile])
+            os.rename("./in.project", resFile)
+        else:
+            inFile = "./tests/{}/in.txt".format(test)
+            if Path(inFile).exists():
+                res = subprocess.run(["java", "-jar", "./cas2text.jar", "-tf", inFile])
+                os.rename("./in.project", resFile)
+            else:
+                print("Error, infile not found!")
+
 
 def run_compare(tests):
     results = []
